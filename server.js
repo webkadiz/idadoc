@@ -1,22 +1,18 @@
 require('dotenv').config()
-const fastify = require("fastify")({
-    logger: false
+const fastify = require('fastify')({
+    logger: false,
 })
 const fp = require('fastify-plugin')
-const axiosRetry = require("axios-retry")
-const axios = require("axios")
-const MediaService = require("./services/media-service")
-const swaggerConfig = require("./swagger-config")
-const { mediaEntity, mediaByPageNumber, mediaAll } = require("./schemas")
-const signup = require('./routes/signup')
+const axiosRetry = require('axios-retry')
+const axios = require('axios')
+const swaggerConfig = require('./config/swagger')
+const {mediaEntity, mediaByPageNumber, mediaAll} = require('./schemas')
 const replyWrapperPlugin = require('./plugins/reply-wrapper')
 require('./db')
 
-axiosRetry(axios, { retries: 3 })
+axiosRetry(axios, {retries: 3})
 
-axios.defaults.baseURL = "https://graph.instagram.com/me"
-
-MediaService.init()
+axios.defaults.baseURL = 'https://graph.instagram.com/me'
 
 fastify.addSchema(mediaEntity)
 fastify.addSchema(mediaByPageNumber)
@@ -24,39 +20,12 @@ fastify.addSchema(mediaAll)
 
 fastify.register(fp(replyWrapperPlugin))
 
-fastify.register(require("@fastify/swagger"), swaggerConfig)
+fastify.register(require('@fastify/swagger'), swaggerConfig)
 
-fastify.register(signup)
+fastify.register(require('./routes/signup'))
+fastify.register(require('./routes/media'))
 
-fastify.register(async function (fastify, options, done) {
-    fastify.get("/", (_, reply) => {
-        reply.send("")
-    })
-
-    fastify.get(
-        "/feed/:pageNumber",
-        { schema: fastify.getSchema("mediaByPageNumber") },
-        async (request, reply) => {
-            const media = await MediaService.getMediaByPage(request.params.pageNumber)
-
-            reply.send(media)
-        }
-    )
-
-    fastify.get(
-        "/feed",
-        { schema: fastify.getSchema("mediaAll") },
-        async (_, reply) => {
-            const media = await MediaService.getMedia()
-
-            reply.send(media)
-        }
-    )
-
-    done()
-})
-
-fastify.listen({ port: 4000 }, (err) => {
+fastify.listen({port: process.env.PORT}, (err) => {
     if (err) {
         fastify.log.error(err)
         process.exit(1)
