@@ -5,6 +5,7 @@ const axios = require("axios")
 require("./db")
 const Api = require("./services/api-service")
 const { Media } = require("./mongoose-schemas")
+const { baseUrl } = require("./utils/url")
 
 axios.defaults.baseURL = "https://graph.instagram.com/me"
 
@@ -33,7 +34,7 @@ async function main() {
         const mediaExt = path.extname(mediaPath)
         const execCmd = `curl '${mediaEntity.media_url}' -o public/${mediaEntity.id}${mediaExt}`
 
-        mediaEntity.media_url = `https://instribbon.webkadiz.ru/public/${mediaEntity.id}${mediaExt}`
+        mediaEntity.media_url = `${baseUrl}/public/${mediaEntity.id}${mediaExt}`
 
         if (mediaEntity.media_type === 'CAROUSEL_ALBUM') mediaEntity.media_type = 'IMAGE'
 

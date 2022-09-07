@@ -1,3 +1,5 @@
+const {baseUrl} = require('../utils/url')
+
 module.exports = {
     routePrefix: '/docs',
     swagger: {
@@ -5,8 +7,8 @@ module.exports = {
             title: 'Instagram aidadoc API',
             version: '0.1.0',
         },
-        host: `${process.env.HOST}:${process.env.PORT}`,
-        schemes: [process.env.DEV ? 'http' : 'https'],
+        host: baseUrl,
+        schemes: ['http', 'https'],
         consumes: ['application/json'],
         produces: ['application/json'],
     },
