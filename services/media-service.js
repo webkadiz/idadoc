@@ -25,33 +25,33 @@ class MediaService {
         return media
     }
 
-    async warmingUpNewMedia() {
-        setTimeout(this.warmingUpNewMedia, HOUR)
+    warmingUpNewMedia() {
+        setTimeout(this.warmingUpNewMedia.bind(this), 1000)
 
-        const mediaPortion = await Api.getFirstMedia()
+        // const mediaPortion = await Api.getFirstMedia()
 
-        if (!mediaPortion || !mediaPortion.data.length) return
+        // if (!mediaPortion || !mediaPortion.data.length) return
 
-        const newestMediaEntity = mediaPortion.data[0]
-        const newestSavedMediaEntity = await Media.findOne().sort({_id: -1})
+        // const newestMediaEntity = mediaPortion.data[0]
+        // const newestSavedMediaEntity = await Media.findOne().sort({_id: -1})
 
-        if (newestSavedMediaEntity.id === newestMediaEntity) return
+        // if (newestSavedMediaEntity.id === newestMediaEntity) return
 
-        const media = []
+        // const media = []
 
-        for (const mediaEntity of mediaPortion.data) {
-            if (mediaEntity.id === newestSavedMediaEntity) break
+        // for (const mediaEntity of mediaPortion.data) {
+        //     if (mediaEntity.id === newestSavedMediaEntity) break
             
-            media.unshift(mediaEntity)
-        }
+        //     media.unshift(mediaEntity)
+        // }
 
-        for (const mediaEntity of media) {
-            if (mediaEntity.media_type === 'CAROUSEL_ALBUM') mediaEntity.media_type = 'IMAGE'
+        // for (const mediaEntity of media) {
+        //     if (mediaEntity.media_type === 'CAROUSEL_ALBUM') mediaEntity.media_type = 'IMAGE'
 
-            const newMedia = new Media(mediaEntity)
+        //     const newMedia = new Media(mediaEntity)
 
-            newMedia.save()
-        }
+        //     newMedia.save()
+        // }
     }
 }
 
