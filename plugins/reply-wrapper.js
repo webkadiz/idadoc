@@ -10,7 +10,8 @@ module.exports = function (fastify, opts, done) {
         }
 
         this.send({
-            success: true,
+            error: false,
+            message: '',
             data: payload,
         })
     })

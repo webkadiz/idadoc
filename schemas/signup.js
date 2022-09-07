@@ -17,17 +17,11 @@ module.exports.signupPostSchema = {
         required: ['phone', 'age', 'gender'],
     },
     response: {
-        default: {
+        200: {
             type: 'object',
             properties: {
                 error: {type: 'boolean'},
                 message: {type: 'string'},
-            },
-        },
-        200: {
-            type: 'object',
-            properties: {
-                success: {type: 'boolean'},
             },
         },
     },

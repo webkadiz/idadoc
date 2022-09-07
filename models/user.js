@@ -1,4 +1,4 @@
-const { Model } = require("sequelize")
+const {Model} = require('sequelize')
 
 module.exports = (sequelize, DataTypes) => {
     class User extends Model {
@@ -11,11 +11,11 @@ module.exports = (sequelize, DataTypes) => {
         {
             age: DataTypes.INTEGER,
             gender: DataTypes.ENUM('F', 'M'),
-            phone: DataTypes.STRING
+            phone: DataTypes.STRING,
         },
         {
             sequelize,
-            modelName: "User"
+            modelName: 'user',
         }
     )
 

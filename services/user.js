@@ -3,7 +3,7 @@ const db = require("../models")
 class UserService {
     async create(userParams) {
         try {
-            await db.User.create(userParams)
+            await db.user.create(userParams)
         } catch (err) {
             return err
         }

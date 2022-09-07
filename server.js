@@ -24,6 +24,7 @@ fastify.register(require('@fastify/swagger'), swaggerConfig)
 
 fastify.register(require('./routes/signup'))
 fastify.register(require('./routes/media'))
+fastify.register(require('./routes/checkins'))
 
 fastify.listen({port: process.env.PORT}, (err) => {
     if (err) {
