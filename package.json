@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "@fastify/swagger": "^7.4.1",
+    "axios": "^0.27.2",
+    "axios-retry": "^3.3.1",
+    "fastify": "^4.4.0",
+    "mongodb": "^4.9.1",
+    "mongoose": "^6.5.4"
+  }
+}
