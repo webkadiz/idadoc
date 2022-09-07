@@ -1,3 +1,3 @@
 module.exports.baseUrl = process.env.DEV
-    ? `http://localhost:${process.env.PORT}`
+    ? `http://${process.env.HOST}`
     : `https://${process.env.HOST}`
