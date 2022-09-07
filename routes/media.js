@@ -1,4 +1,4 @@
-const MediaService = require("./services/media-service")
+const MediaService = require("../services/media-service")
 
 MediaService.init()
 
