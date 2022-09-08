@@ -1,9 +1,12 @@
 const db = require("../models")
+const CheckinsService = require('./checkins-service')
 
 class UserService {
     async create(userParams) {
         try {
-            await db.user.create(userParams)
+            const user = await db.user.create(userParams)
+
+            return await CheckinsService.createClinicalExamination({userId: user.dataValues.id, age: userParams.age})
         } catch (err) {
             return err
         }
